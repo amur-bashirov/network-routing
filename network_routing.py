@@ -33,11 +33,11 @@ def find_shortest_path_with_array(
         - the cost of the path
     """
     print(f"find_shortest_path_with_array({graph}, {source}, {target})")  # TODO: remove this line after you implement this functionsource, target)
-    nodes = {}
+    nodes = set()
     for parent, edges in graph.items():
         nodes.add(parent)
         nodes.update(edges.keys())
-    print(f"nodes = {nodes}")  # TODO: remove this line after you implement this function (list of nodes)
+    print(f"nodes = {nodes}")
     dist = {}
     prev = {}
     for node in nodes:
@@ -45,7 +45,6 @@ def find_shortest_path_with_array(
         prev[node] = None
 
     dist[source] = 0
-     # TODO: implement this function
 
     H = {source: 0}
     while H:
@@ -54,5 +53,15 @@ def find_shortest_path_with_array(
             if dist[u] + w < dist[v]:
                 dist[v] = dist[u] + w
                 prev[v] = u
-                H.append(v)
-    return []
+                H[v] = dist[v]
+
+    total_weight = dist[target]
+    path = {}
+    current = target
+    while current != source:
+        current = prev[current]
+        path.append(current)
+    path.append(source)
+
+
+    return path, total_weight
