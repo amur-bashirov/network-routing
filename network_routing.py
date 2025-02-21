@@ -1,4 +1,5 @@
 import math
+from Data_Structures import pop_min
 
 
 def find_shortest_path_with_heap(
@@ -14,6 +15,8 @@ def find_shortest_path_with_heap(
         - the list of nodes (including `source` and `target`)
         - the cost of the path
     """
+
+
 
 
 def find_shortest_path_with_array(
@@ -44,12 +47,12 @@ def find_shortest_path_with_array(
     dist[source] = 0
      # TODO: implement this function
 
-    queue = [source]
-    while queue:
-        u = queue.pop(0)
+    H = {source: 0}
+    while H:
+        u = pop_min(H)
         for v, w in graph[u].items():
             if dist[u] + w < dist[v]:
                 dist[v] = dist[u] + w
                 prev[v] = u
-                queue.append(v)
+                H.append(v)
     return []
