@@ -1,5 +1,5 @@
 import math
-from Data_Structures import pop_min, PriorityHeap
+from queue_structures import pop_min, PriorityHeap
 
 
 def find_shortest_path_with_heap(
@@ -30,24 +30,24 @@ def find_shortest_path_with_heap(
 
     dist[source] = 0
     H = PriorityHeap()
-    H.Insert(source, 0)
+    H.insert(source, 0)
 
     while H:
         u = H.delete_min()
         parent = u[0]
         for v, w in graph[parent].items():
-            if dist[v] > dist[u] + w:
-                dist[v] = dist[u] + w
-                prev[v] = u
-                H.Insert(v, dist[v])
-
+            if dist[v] > dist[parent] + w:
+                dist[v] = dist[parent] + w
+                prev[v] = parent
+                H.decrease_key(v, dist[v])
+    result = dist[target]
     path = [target]
     while target != source:
         target = prev[target]
         path.append(target)
 
     path.reverse()
-    return path, dist[target]
+    return path, result
 
 
 
@@ -93,11 +93,17 @@ def find_shortest_path_with_array(
     total_weight = dist[target]
     path = []
     current = target
+    Empty = False
     while current != source:
+        if current == None:
+            Empty = True
+            path = []
+            break
         path.append(current)
         current = prev[current]
-    path.append(source)
-    path.reverse()
+    if not Empty :
+        path.append(source)
+        path.reverse()
 
 
     print(f"path = {path}, total_weight = {total_weight}")

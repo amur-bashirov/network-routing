@@ -82,6 +82,7 @@ def main(seed: int, size: int, density: float, noise: float, source: int, target
     print('Path:', path)
     print('Cost:', cost)
     print('Time:', array_time)
+    title(f'Array: {round(array_time, 4)}')
 
     # title(f'Cost: {cost}, Heap: {round(heap_time, 4)}, Array: {round(array_time, 4)}')
     show_plot(block=True)
@@ -91,7 +92,7 @@ if __name__ == '__main__':
     # To debug or run in your IDE
     # you can uncomment the lines below and modify the arguments as needed
     import sys
-    sys.argv = ['main.py', '-n', '10000', '--seed', '312', '--density', '0.0001', '--noise', '0.05','--debug']
+    sys.argv = ['main.py', '-n', '50000', '--seed', '312', '--density', '0.0002', '--noise', '0.05','--debug','--source','2','--target','9']
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-n', type=int, help='The number of points to generate', default=10)
